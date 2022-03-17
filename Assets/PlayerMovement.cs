@@ -33,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
         float v = Input.GetAxis("Vertical");
         player_transform.Translate(h*player_speed*Time.deltaTime, 0, 0);
         player_transform.Translate(0, v * player_speed * Time.deltaTime, 0);
-
-    
+        
     }
 }
