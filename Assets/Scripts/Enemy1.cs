@@ -5,11 +5,10 @@ using UnityEngine;
 public class Enemy1 : MonoBehaviour
 {
 
-    public int  speed=1,
-                 fire_rate=10,
-                 life=51;
-    public Transform transform;
-    public Collider2D coll;
+    public int  speed=3,
+                 life=40;
+    private Transform transform;
+    private Collider2D coll;
     public PlayerMovement player;
 
 
@@ -27,6 +26,7 @@ public class Enemy1 : MonoBehaviour
     {
         
         movement();
+        death();
     }
 
     void damaged(int dmg)
@@ -44,6 +44,27 @@ public class Enemy1 : MonoBehaviour
             }
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            Destroy(this.gameObject);
+
+        }
+        if(collision.tag == "Player_Laser")
+        {
+            this.life = this.life - 10;  //esto va a cambiar para que coincida con el daño del jugador
+            
+        }
+    }
+    public void death()
+    {
+        if (this.life <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 
     void movement()
     {
@@ -51,18 +72,18 @@ public class Enemy1 : MonoBehaviour
         if(y < 15.0f)
         {
             y += .05f;
-            transform.Translate( 0, speed * Time.deltaTime*.1f, 0);
+            transform.Translate( 0, speed * Time.deltaTime, 0);
         }
         else
         {
             if(x > -30f)
             {
                 x -= .05f;
-                transform.Translate(speed * Time.deltaTime*.1f,0, 0);
+                transform.Translate(speed * Time.deltaTime,0, 0);
             }
             else
             {
-                transform.Translate(0, speed * Time.deltaTime * .1f, 0);
+                transform.Translate(0, speed * Time.deltaTime  , 0);
             }
         }
     }

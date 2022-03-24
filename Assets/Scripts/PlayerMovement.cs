@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public int player_life = 100;
-    public int player_damage = 50;
+    public int player_damage = 10;
     public int player_speed = 5;
     public int player_firing_rate = 3;
     public int player_charger_size = 10;
@@ -53,6 +53,6 @@ public class PlayerMovement : MonoBehaviour
     public void firePointPosition()
     {
         firePointX = firePoint.transform.position.x;
-        firePointY = firePoint.transform.position.y + .7f;
+        firePointY = firePoint.transform.position.y;
     }
 }
