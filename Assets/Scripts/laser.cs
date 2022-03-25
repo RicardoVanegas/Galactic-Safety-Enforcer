@@ -25,5 +25,9 @@ public class laser : MonoBehaviour
             Destroy(this.gameObject);
             
         }
+        if (collision.tag == "Top Limit")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

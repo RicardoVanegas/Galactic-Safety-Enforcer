@@ -8,7 +8,8 @@ public class PlayerMovement : MonoBehaviour
     public int player_life = 100;
     public int player_damage = 10;
     public int player_speed = 5;
-    public int player_firing_rate = 3;
+    public float player_firing_rate = 1f;
+    private float next_Time_To_Fire = 0f;
     public int player_charger_size = 10;
     public float player_reload_time = 1.0f;
     private Transform player_transform;
@@ -16,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform firePoint;
     private float firePointX;
     private float firePointY;
-
+    private int count = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -28,8 +29,12 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         movement();
-        attack();
+        
         firePointPosition();
+        attack();
+
+        
+       
     }
 
     public void movement()
@@ -44,11 +49,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void attack()
     {
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J) && Time.time >= next_Time_To_Fire)
         {
+            next_Time_To_Fire = Time.time + 1f / player_firing_rate;
             GameObject projectile = Instantiate(laser) as GameObject;
             projectile.transform.position = new Vector2(firePointX, firePointY);
+            Debug.Log(count++);
         }
+       
     }
     public void firePointPosition()
     {

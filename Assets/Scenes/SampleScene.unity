@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 405352497}
   m_Layer: 0
   m_Name: Top limit
-  m_TagString: Untagged
+  m_TagString: Top Limit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1152,7 +1152,7 @@ MonoBehaviour:
   player_life: 100
   player_damage: 50
   player_speed: 5
-  player_firing_rate: 3
+  player_firing_rate: 2
   player_charger_size: 10
   player_reload_time: 1
   laser: {fileID: 7671445650156805954, guid: 76c820bf167f3de49a7fa79e49ad1158, type: 3}
