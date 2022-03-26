@@ -6,10 +6,13 @@ public class Enemy1 : MonoBehaviour
 {
 
     public int  speed=3,
-                 life=40;
-    private Transform transform;
+                 life=40,
+                 damage = 40;
+    private Transform enemy_transform;
     private Collider2D coll;
     public PlayerMovement player;
+    public GameObject explosion;
+    
 
 
 
@@ -18,7 +21,7 @@ public class Enemy1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform = GetComponent<Transform>();
+        enemy_transform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -48,12 +51,16 @@ public class Enemy1 : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            FindObjectOfType<PlayerMovement>().takeDamage(damage);
+            GameObject explosion_anim = Instantiate(explosion) as GameObject;
+            explosion_anim.transform.position = enemy_transform.position;
             Destroy(this.gameObject);
+            
 
         }
         if(collision.tag == "Player_Laser")
         {
-            this.life = this.life - 10;  //esto va a cambiar para que coincida con el daño del jugador
+            this.life -= 10;  //esto va a cambiar para que coincida con el daño del jugador
             
         }
     }
@@ -61,9 +68,12 @@ public class Enemy1 : MonoBehaviour
     {
         if (this.life <= 0)
         {
+            GameObject explosion_anim = Instantiate(explosion) as GameObject;
+            explosion_anim.transform.position = enemy_transform.position;
             Destroy(this.gameObject);
         }
     }
+   
 
 
     void movement()
