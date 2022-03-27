@@ -20,12 +20,12 @@ public class PlayerMovement : MonoBehaviour
     public Transform firePoint;
     private float firePointX;
     private float firePointY;
-    private int count = 0;
     public Text ammunition_text;
     private bool reloading;
     public GameObject loading_anim;
     public Transform loading_position;
     public HealthBar healthBar;
+    public GameObject explosion;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         player_transform.Translate(0, v * player_speed * Time.deltaTime, 0);
 
     }
+   
 
     public void attack()
     {
@@ -90,6 +91,12 @@ public class PlayerMovement : MonoBehaviour
     {
         player_current_life -=  damage;
         healthBar.setHealth(player_current_life);
+        if (player_current_life<=0)
+        {
+            GameObject explosion_anim = Instantiate(explosion) as GameObject;
+            explosion_anim.transform.position = player_transform.position;
+            Destroy(this.gameObject);
+        }
     }
    
 }

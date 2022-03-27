@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5169864420602813314}
   - component: {fileID: -3997207038904421192}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: Player Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_Sprite: {fileID: -6213477892412391994, guid: 80426eec89c87654ab82a6d251bb4dfa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 0.3, y: 0.63}
   m_AdaptiveModeThreshold: 0.5
