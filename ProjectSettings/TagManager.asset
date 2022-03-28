@@ -8,6 +8,8 @@ TagManager:
   - Player_Laser
   - Top Limit
   - Mothership
+  - Laser Limit
+  - MothershipLaser
   layers:
   - Default
   - TransparentFX
@@ -20,8 +22,8 @@ TagManager:
   - base
   - bullet_player
   - bullet_enemy
-  - 
-  - 
+  - Mothership
+  - Mothership laser
   - 
   - 
   - 

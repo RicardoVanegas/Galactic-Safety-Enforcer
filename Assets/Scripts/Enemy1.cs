@@ -165,6 +165,12 @@ public class Enemy1 : MonoBehaviour
             damaged(FindObjectOfType<PlayerMovement>().player_damage);
             
         }
+        if(collision.tag == "MothershipLaser")
+        {
+            GameObject explosion_anim = Instantiate(explosion) as GameObject;
+            explosion_anim.transform.position = transform.position;
+            Destroy(this.gameObject);
+        }
     }
     public void death()
     {
