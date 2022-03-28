@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Player_Laser
   - Top Limit
+  - Mothership
   layers:
   - Default
   - TransparentFX

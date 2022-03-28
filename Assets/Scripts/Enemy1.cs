@@ -12,7 +12,6 @@ public class Enemy1 : MonoBehaviour
                  move_speed;
     private Transform enemy_transform;
     private Collider2D coll;
-    public PlayerMovement player;
     public GameObject explosion;
     private Vector2 target;
     
@@ -93,7 +92,7 @@ public class Enemy1 : MonoBehaviour
                 target = new Vector2(6, 4);
             }
         }
-        if (enemy_transform.position.x == -7 && enemy_transform.position.y == 4 || enemy_transform.position.x == 0 && enemy_transform.position.y == 2 || enemy_transform.position.x == 7 && enemy_transform.position.y == 4)
+        if (enemy_transform.position.x == -7 && enemy_transform.position.y == 4 || enemy_transform.position.x == 0 && enemy_transform.position.y == 2 || enemy_transform.position.x == 6 && enemy_transform.position.y == 4)
         {
             move_speed = attack_speed;
             Invoke("attack", .5f);
@@ -143,19 +142,10 @@ public class Enemy1 : MonoBehaviour
         this.life -= dmg;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.layer == 6) //collision with a player/base bullet
-        {
-            if(collision.gameObject.tag == "bullet")
-            {
-                damaged(player.player_damage);
-            }
-        }
-    }
+   
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" )
         {
             FindObjectOfType<PlayerMovement>().takeDamage(damage);
             GameObject explosion_anim = Instantiate(explosion) as GameObject;
@@ -164,9 +154,15 @@ public class Enemy1 : MonoBehaviour
             
 
         }
+        if (collision.tag == "Mothership")
+        {
+            GameObject explosion_anim = Instantiate(explosion) as GameObject;
+            explosion_anim.transform.position = transform.position;
+            Destroy(this.gameObject);
+        }
         if(collision.tag == "Player_Laser")
         {
-            this.life -= 10;  //esto va a cambiar para que coincida con el daño del jugador
+            damaged(FindObjectOfType<PlayerMovement>().player_damage);
             
         }
     }
