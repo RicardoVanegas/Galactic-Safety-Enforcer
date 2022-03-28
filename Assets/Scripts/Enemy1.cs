@@ -11,9 +11,10 @@ public class Enemy1 : MonoBehaviour
                  damage = 40,
                  move_speed;
     private Transform enemy_transform;
-    private Collider2D coll;
     public GameObject explosion;
     private Vector2 target;
+    private int points_for_death=25;
+    private int gold_for_death = 5;
     
 
 
@@ -56,12 +57,12 @@ public class Enemy1 : MonoBehaviour
             }
             if(n== 2)
             {
-                target = new Vector2(-4, 4);
+                target = new Vector2(-1, 4);
                 
             }
             
         }
-       if(enemy_transform.position.x == -8 && enemy_transform.position.y == 2 || enemy_transform.position.x == -4 && enemy_transform.position.y == 4)
+       if(enemy_transform.position.x == -8 && enemy_transform.position.y == 2 || enemy_transform.position.x == -1 && enemy_transform.position.y == 4)
         {
             move_speed = attack_speed;
             Invoke("attack", .5f);
@@ -147,6 +148,8 @@ public class Enemy1 : MonoBehaviour
     {
         if (collision.tag == "Player" )
         {
+            FindObjectOfType<PlayerMovement>().givePoints(points_for_death);
+            FindObjectOfType<PlayerMovement>().giveGold(gold_for_death);
             FindObjectOfType<PlayerMovement>().takeDamage(damage);
             GameObject explosion_anim = Instantiate(explosion) as GameObject;
             explosion_anim.transform.position = transform.position;
@@ -176,11 +179,14 @@ public class Enemy1 : MonoBehaviour
     {
         if (this.life <= 0)
         {
+            FindObjectOfType<PlayerMovement>().givePoints(points_for_death);
+            FindObjectOfType<PlayerMovement>().giveGold(gold_for_death);
             GameObject explosion_anim = Instantiate(explosion) as GameObject;
             explosion_anim.transform.position = transform.position;
             Destroy(this.gameObject);
         }
     }
+    
    
    
 }

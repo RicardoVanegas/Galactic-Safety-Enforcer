@@ -26,6 +26,10 @@ public class PlayerMovement : MonoBehaviour
     public Transform loading_position;
     public HealthBar healthBar;
     public GameObject explosion;
+    private int gold;
+    private int score;
+    public Text gold_text;
+    public Text score_text;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
         current_ammo = ammo;
         player_current_life = player_life;
         healthBar.setMaxHealth(player_life);
+        gold = 0;
+        score = 0;
+        
     }
 
     // Update is called once per frame
@@ -97,6 +104,19 @@ public class PlayerMovement : MonoBehaviour
             explosion_anim.transform.position = player_transform.position;
             Destroy(this.gameObject);
         }
+    }
+    public void givePoints(int n)
+    {
+        
+        score += n;
+        score_text.text = score.ToString();
+        
+    }
+    public void giveGold(int n)
+    {
+        
+        gold += n;
+        gold_text.text = gold.ToString();
     }
    
 }
