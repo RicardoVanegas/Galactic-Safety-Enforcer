@@ -22,7 +22,7 @@ public class EnemyLaser3 : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            FindObjectOfType<PlayerMovement>().takeDamage(FindObjectOfType<Enemy2>().damage);
+            FindObjectOfType<PlayerMovement>().takeDamage(FindObjectOfType<Enemy3>().damage);
             Destroy(this.gameObject);
         }
         if (collision.tag == "Mothership")
