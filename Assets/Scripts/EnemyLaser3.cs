@@ -27,7 +27,7 @@ public class EnemyLaser3 : MonoBehaviour
         }
         if (collision.tag == "Mothership")
         {
-            FindObjectOfType<mothership>().takeDamage(FindObjectOfType<Enemy2>().damage);
+            FindObjectOfType<mothership>().takeDamage(FindObjectOfType<Enemy3>().damage);
             Destroy(this.gameObject);
         }
     }
