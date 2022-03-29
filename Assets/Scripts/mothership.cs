@@ -35,6 +35,16 @@ public class mothership : MonoBehaviour
                 death();
             }
         }
+        
+    }
+    public void takeDamage(int n)
+    {
+        current_health -= n;
+        healthBar.setHealth(current_health);
+        if (current_health <= 0)
+        {
+            death();
+        }
     }
     public void death()
     {
