@@ -30,10 +30,12 @@ public class PlayerMovement : MonoBehaviour
     private int score;
     public Text gold_text;
     public Text score_text;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+       
         player_transform = GetComponent<Transform>();
         current_ammo = ammo;
         player_current_life = player_life;
@@ -118,5 +120,7 @@ public class PlayerMovement : MonoBehaviour
         gold += n;
         gold_text.text = gold.ToString();
     }
+    
+
    
 }
