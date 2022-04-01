@@ -48,6 +48,7 @@ public class mothership : MonoBehaviour
     }
     public void death()
     {
+        FindObjectOfType<endGame>().LostGame((FindObjectOfType<PlayerMovement>().score), FindObjectOfType<survivedTime>().seconds_survived) ;
         GameObject explosion_anim = Instantiate(explosion) as GameObject;
         explosion_anim.transform.position = explosion_position.position;
         Destroy(this.gameObject);

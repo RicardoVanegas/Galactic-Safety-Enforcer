@@ -48,6 +48,8 @@ public class Enemy3 : MonoBehaviour
         }
         if (collision.tag == "MothershipLaser")
         {
+            FindObjectOfType<PlayerMovement>().givePoints(points_for_death);
+            FindObjectOfType<PlayerMovement>().giveGold(gold_for_death);
             GameObject explosion_anim = Instantiate(explosion) as GameObject;
             explosion_anim.transform.position = transform.position;
             Destroy(this.gameObject);

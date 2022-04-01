@@ -26,10 +26,11 @@ public class PlayerMovement : MonoBehaviour
     public Transform loading_position;
     public HealthBar healthBar;
     public GameObject explosion;
-    private int gold;
-    private int score;
+    public int gold;
+    public int score;
     public Text gold_text;
     public Text score_text;
+    
     
 
     // Start is called before the first frame update
@@ -51,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         movement();
         firePointPosition();
         attack();
+        
        
     }
 
@@ -100,12 +102,16 @@ public class PlayerMovement : MonoBehaviour
     {
         player_current_life -=  damage;
         healthBar.setHealth(player_current_life);
-        if (player_current_life<=0)
+
+        if (player_current_life <= 0)
         {
+            
             GameObject explosion_anim = Instantiate(explosion) as GameObject;
             explosion_anim.transform.position = player_transform.position;
+            FindObjectOfType<endGame>().LostGame(score,FindObjectOfType<survivedTime>().seconds_survived);
             Destroy(this.gameObject);
         }
+
     }
     public void givePoints(int n)
     {
@@ -120,6 +126,8 @@ public class PlayerMovement : MonoBehaviour
         gold += n;
         gold_text.text = gold.ToString();
     }
+   
+   
     
 
    
