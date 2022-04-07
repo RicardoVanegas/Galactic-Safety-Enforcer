@@ -5,16 +5,24 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public int health_level;
+    public int speed_level;
+    public int damage_level;
+    public int firingRate_level;
+    public int reloadSpeed_level;
+    public int ammo_level;
+    public int gold_saved;
+    public int higher_score;
 
-    public int player_life = 50;
+    public int player_life;
     private int player_current_life;
-    public int player_damage = 10;
-    public int player_speed = 5;
-    public float player_firing_rate = 1f;
-    private float next_Time_To_Fire = 0f;
+    public int player_damage;
+    public float player_speed;
+    public float player_firing_rate;
+    private float next_Time_To_Fire;
     private int current_ammo;
-    public int ammo = 10;
-    public float player_reload_time = 3f;
+    public int ammo;
+    public float player_reload_time;
     private Transform player_transform;
     public GameObject laser;
     public Transform firePoint;
@@ -30,21 +38,40 @@ public class PlayerMovement : MonoBehaviour
     public int score;
     public Text gold_text;
     public Text score_text;
-    
+    public int actual_score;
     
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        playerData data = SaveSystem.LoadPlayer();
+        health_level = data.health_level;
+        speed_level = data.speed_level;
+        damage_level = data.damage_level;
+        firingRate_level = data.firingRate_level;
+        reloadSpeed_level = data.reloadSpeed_level;
+        ammo_level = data.ammo_level;
+        gold_saved = data.gold_amount;
+        higher_score = data.higher_score;
+
+        player_life = health_level * 50;
+        player_damage = damage_level * 10;
+        player_speed = 5 + ((speed_level - 1) * .5f);
+        player_firing_rate = 1 + ((firingRate_level -1) * .25f);
+        player_reload_time = 3 - ((reloadSpeed_level-1)*.25f);
+        ammo = ammo_level * 10;
+        gold = gold_saved;
+        
+
         player_transform = GetComponent<Transform>();
         current_ammo = ammo;
         player_current_life = player_life;
         healthBar.setMaxHealth(player_life);
-        gold = 0;
+        
         score = 0;
         
     }
+    
 
     // Update is called once per frame
     void Update()
@@ -105,10 +132,20 @@ public class PlayerMovement : MonoBehaviour
 
         if (player_current_life <= 0)
         {
-            
+            actual_score = (int)(score + .5 * FindObjectOfType<survivedTime>().seconds_survived);
+            if (actual_score > higher_score)
+            {
+                higher_score = actual_score;
+            }
+
+            SaveSystem.savePlayer(this);
+
             GameObject explosion_anim = Instantiate(explosion) as GameObject;
             explosion_anim.transform.position = player_transform.position;
-            FindObjectOfType<endGame>().LostGame(score,FindObjectOfType<survivedTime>().seconds_survived);
+
+            
+            FindObjectOfType<endGame>().LostGame(actual_score,FindObjectOfType<survivedTime>().seconds_survived, higher_score);
+
             Destroy(this.gameObject);
         }
 

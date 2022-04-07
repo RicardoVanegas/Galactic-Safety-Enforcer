@@ -9,6 +9,7 @@ public class endGame : MonoBehaviour
     public GameObject endGamePanel;
     public Text scoreText;
     public Text seconds_text;
+    public Text Higher_score_text;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,10 +21,11 @@ public class endGame : MonoBehaviour
     {
 
     }
-    public void LostGame(int score,int seconds)
+    public void LostGame(int score,int seconds,int high_score)
     {
-        int actual_score =  (int)(score + .5 * seconds);
-        scoreText.text = actual_score.ToString();
+        
+        scoreText.text = score.ToString();
+        Higher_score_text.text = high_score.ToString();
         seconds_text.text = seconds.ToString();
         endGamePanel.SetActive(true);
         Time.timeScale = 0f;
