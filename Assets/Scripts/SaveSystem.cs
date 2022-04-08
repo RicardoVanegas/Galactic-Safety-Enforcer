@@ -7,6 +7,8 @@ using System.IO;
 
 public class SaveSystem 
 {
+
+    //Player
     public static void createPlayer()
     {
         BinaryFormatter Formatter = new BinaryFormatter();
@@ -17,6 +19,7 @@ public class SaveSystem
         Formatter.Serialize(stream, data);
         stream.Close();
     }
+    
     public static void savePlayerFromShop(PlayerShop player)
     {
         BinaryFormatter Formatter = new BinaryFormatter();
@@ -37,6 +40,15 @@ public class SaveSystem
         Formatter.Serialize(stream, data);
         stream.Close();
     }
+    public static void savePlayerFromMShop(playerData data)
+    {
+        BinaryFormatter Formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/playerData.txt";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        Formatter.Serialize(stream, data);
+        stream.Close();
+    }
     public static playerData LoadPlayer()
     {
         string path = Application.persistentDataPath + "/playerData.txt";
@@ -50,6 +62,57 @@ public class SaveSystem
 
             return data;
             
+        }
+        else
+        {
+            Debug.LogError("Save File not found");
+            return null;
+        }
+    }
+    //Base
+    public static void createBase()
+    {
+        BinaryFormatter Formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/MothershipData.txt";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        MothershipData data = new MothershipData();
+        Formatter.Serialize(stream, data);
+        stream.Close();
+    }
+    public static void saveBaseFromShop(mothershipShop Base)
+    {
+        BinaryFormatter Formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/MothershipData.txt";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        MothershipData data = new MothershipData(Base);
+        Formatter.Serialize(stream, data);
+        stream.Close();
+    }
+    public static void saveBase(mothership Base)
+    {
+        BinaryFormatter Formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/MothershipData.txt";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        MothershipData data = new MothershipData(Base);
+        Formatter.Serialize(stream, data);
+        stream.Close();
+    }
+    public static MothershipData LoadBase()
+    {
+        string path = Application.persistentDataPath + "/MothershipData.txt";
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            MothershipData data = formatter.Deserialize(stream) as MothershipData;
+            stream.Close();
+
+            return data;
+
         }
         else
         {

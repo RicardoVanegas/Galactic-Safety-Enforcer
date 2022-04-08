@@ -15,13 +15,15 @@ public class mainScreen : MonoBehaviour
     void Start()
     {
         string path = Application.persistentDataPath + "/playerData.txt";
-        if (File.Exists(path))
+        string path2 = Application.persistentDataPath + "/MothershipData.txt";
+        if (File.Exists(path) && File.Exists(path2))
         {
             Invoke("changePanel", .75f);
         }
         else
         {
             SaveSystem.createPlayer();
+            SaveSystem.createBase();
             Invoke("changePanel", .75f);
         }
     }

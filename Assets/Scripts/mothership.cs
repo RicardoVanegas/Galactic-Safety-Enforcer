@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class mothership : MonoBehaviour
 {
-    public int health = 500;
+    public int h_level;
+    public int d_level;
+    public int f_level;
+
+    public int health;
+    public int damage;
+    public float firingRate;
     private int current_health;
     public GameObject explosion;
     public Transform explosion_position;
@@ -14,8 +20,39 @@ public class mothership : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MothershipData data = SaveSystem.LoadBase();
+        h_level = data.health_level;
+        d_level = data.damage_level;
+        f_level = data.firingRate_level;
+
+        if (h_level == 1)
+        {
+            health = 500;
+        }
+        else
+        {
+            health = 500 + (250 * (h_level - 1));
+        }
+
         healthBar.setMaxHealth(health);
         current_health = health;
+
+        if(d_level ==1)
+        {
+            damage = 100;
+        }
+        else
+        {
+            damage = 100 + (20 * (d_level - 1));
+        }
+        if (f_level == 1)
+        {
+            firingRate = 16;
+        }
+        else
+        {
+            firingRate = 16 - (1.5f * (f_level - 1));
+        }
         StartCoroutine(attack());
     }
 
@@ -67,7 +104,7 @@ public class mothership : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(15f);
+            yield return new WaitForSeconds(firingRate);
             fire();
         }
 
