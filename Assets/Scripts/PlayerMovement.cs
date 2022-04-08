@@ -39,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
     public Text gold_text;
     public Text score_text;
     public int actual_score;
+
+    private SpriteRenderer playerSprite;
     
 
     // Start is called before the first frame update
@@ -69,7 +71,9 @@ public class PlayerMovement : MonoBehaviour
         healthBar.setMaxHealth(player_life);
         
         score = 0;
-        
+        gold_text.text = gold_saved.ToString();
+
+        playerSprite = GetComponent<SpriteRenderer>();
     }
     
 
@@ -138,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
                 higher_score = actual_score;
             }
 
-            SaveSystem.savePlayer(this);
+            
 
             GameObject explosion_anim = Instantiate(explosion) as GameObject;
             explosion_anim.transform.position = player_transform.position;
@@ -146,9 +150,23 @@ public class PlayerMovement : MonoBehaviour
             
             FindObjectOfType<endGame>().LostGame(actual_score,FindObjectOfType<survivedTime>().seconds_survived, higher_score);
 
-            Destroy(this.gameObject);
+            playerSprite.gameObject.SetActive(false);
+            SaveSystem.savePlayer(this);
+            //Destroy(this.gameObject);
         }
 
+    }
+    public void BaseDestroyed()
+    {
+        actual_score = (int)(score + .5 * FindObjectOfType<survivedTime>().seconds_survived);
+        if (actual_score > higher_score)
+        {
+            higher_score = actual_score;
+        }
+        FindObjectOfType<endGame>().LostGame(actual_score, FindObjectOfType<survivedTime>().seconds_survived, higher_score);
+
+        playerSprite.gameObject.SetActive(false);
+        SaveSystem.savePlayer(this);
     }
     public void givePoints(int n)
     {
@@ -160,8 +178,9 @@ public class PlayerMovement : MonoBehaviour
     public void giveGold(int n)
     {
         
-        gold += n;
-        gold_text.text = gold.ToString();
+        gold_saved += n;
+        
+        gold_text.text = gold_saved.ToString();
     }
    
    

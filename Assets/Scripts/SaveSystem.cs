@@ -7,6 +7,26 @@ using System.IO;
 
 public class SaveSystem 
 {
+    public static void createPlayer()
+    {
+        BinaryFormatter Formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/playerData.txt";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        playerData data = new playerData();
+        Formatter.Serialize(stream, data);
+        stream.Close();
+    }
+    public static void savePlayerFromShop(PlayerShop player)
+    {
+        BinaryFormatter Formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/playerData.txt";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        playerData data = new playerData(player);
+        Formatter.Serialize(stream, data);
+        stream.Close();
+    }
     public static void savePlayer(PlayerMovement player)
     {
         BinaryFormatter Formatter = new BinaryFormatter();

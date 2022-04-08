@@ -33,7 +33,19 @@ public class playerData
         firingRate_level = player.firingRate_level;
         reloadSpeed_level = player.reloadSpeed_level;
         ammo_level = player.ammo_level;
-        gold_amount = player.gold;
+        gold_amount = player.gold_saved;
         higher_score = player.higher_score;
+    }
+    public playerData(PlayerShop player)
+    {
+        health_level = player.health_level;
+        speed_level = player.speed_level;
+        damage_level = player.damage_level;
+        firingRate_level = player.firingRate_level;
+        reloadSpeed_level = player.reloadSpeed_level;
+        ammo_level = player.ammo_level;
+        gold_amount = player.gold_amount;
+        higher_score = player.higher_score;
+        
     }
 }
