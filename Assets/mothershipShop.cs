@@ -76,6 +76,7 @@ public class mothershipShop : MonoBehaviour
                 h_lev.text = h_level.ToString();
                 upgrade_text.SetActive(true);
                 gold_text.text = gold.ToString();
+                player_data.gold_amount = gold;
                 Invoke("dissappearUpgrade", .5f);
             }
         }
@@ -100,6 +101,7 @@ public class mothershipShop : MonoBehaviour
                 d_lev.text = d_level.ToString();
                 upgrade_text.SetActive(true);
                 gold_text.text = gold.ToString();
+                player_data.gold_amount = gold;
                 Invoke("dissappearUpgrade", .5f);
             }
         }
@@ -124,6 +126,7 @@ public class mothershipShop : MonoBehaviour
                 f_lev.text = f_level.ToString();
                 upgrade_text.SetActive(true);
                 gold_text.text = gold.ToString();
+                player_data.gold_amount = gold;
                 Invoke("dissappearUpgrade", .5f);
             }
         }
@@ -137,6 +140,14 @@ public class mothershipShop : MonoBehaviour
     {
         SaveSystem.saveBaseFromShop(this);
         SaveSystem.savePlayerFromMShop(player_data);
+    }
+    public void dissappearUpgrade()
+    {
+        upgrade_text.SetActive(false);
+    }
+    public void dissappearMax()
+    {
+        max_text.SetActive(false);
     }
 
     // Update is called once per frame
