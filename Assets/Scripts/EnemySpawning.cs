@@ -8,6 +8,9 @@ public class EnemySpawning : MonoBehaviour
     public GameObject enemy_type2;
     public GameObject enemy_type3;
     public Transform [] spawn_spot = new Transform[3];
+    private float enemy1_time = 5;
+    private float enemy2_time = 7;
+    private float enemy3_time = 10;
     
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,7 @@ public class EnemySpawning : MonoBehaviour
         StartCoroutine(spawn());
         StartCoroutine(spawn2());
         StartCoroutine(spawn3());
+        StartCoroutine(reduceTime());
     }
 
     // Update is called once per frame
@@ -50,7 +54,7 @@ public class EnemySpawning : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(enemy1_time);
             spawnEnemy();
         }
        
@@ -81,7 +85,7 @@ public class EnemySpawning : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(7);
+            yield return new WaitForSeconds(enemy2_time);
             spawnEnemy2();
         }
 
@@ -111,10 +115,36 @@ public class EnemySpawning : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(enemy3_time);
             spawnEnemy3();
         }
 
 
+    }
+    public void timeRedux()
+    {
+        enemy1_time -= 1f;
+        enemy2_time -= 1f;
+        enemy3_time -= 1f;
+        if (enemy1_time < 1)
+        {
+            enemy1_time = 1;
+        }
+        if (enemy2_time < 1)
+        {
+            enemy2_time = 1;
+        }
+        if (enemy3_time < 1)
+        {
+            enemy3_time = 1;
+        }
+    }
+    IEnumerator reduceTime()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(15);
+            timeRedux();
+        }
     }
 }

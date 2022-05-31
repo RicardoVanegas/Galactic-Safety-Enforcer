@@ -6,11 +6,13 @@ public class EnemyLaser3 : MonoBehaviour
 {
     private Rigidbody2D rb;
     private float speed = 30f;
+    private int damage;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(0, -speed);
+        damage = FindObjectOfType<Enemy3>().damage;
     }
 
     // Update is called once per frame
@@ -22,12 +24,12 @@ public class EnemyLaser3 : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            FindObjectOfType<PlayerMovement>().takeDamage(FindObjectOfType<Enemy3>().damage);
+            FindObjectOfType<PlayerMovement>().takeDamage(damage);
             Destroy(this.gameObject);
         }
         if (collision.tag == "Mothership")
         {
-            FindObjectOfType<mothership>().takeDamage(FindObjectOfType<Enemy3>().damage);
+            FindObjectOfType<mothership>().takeDamage(damage);
             Destroy(this.gameObject);
         }
     }
