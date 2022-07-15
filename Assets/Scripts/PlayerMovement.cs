@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         player_life = health_level * 50;
         player_damage = damage_level * 10;
         player_speed = 5 + ((speed_level - 1) * .5f);
-        player_firing_rate = 1 + ((firingRate_level -1) * .25f);
+        player_firing_rate = 5 + ((firingRate_level -1) * .25f);
         player_reload_time = 3 - ((reloadSpeed_level-1)*.25f);
         ammo = ammo_level * 10;
         gold = gold_saved;

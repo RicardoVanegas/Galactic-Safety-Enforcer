@@ -12,7 +12,12 @@ public class SaveSystem
     public static void createPlayer()
     {
         BinaryFormatter Formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/playerData.txt";
+        string path = $"{Application.persistentDataPath}/playerData.txt";
+
+        Debug.Log(Application.persistentDataPath+ "persistent");
+        Debug.Log(Application.dataPath+"dataPath");
+
+        
         FileStream stream = new FileStream(path, FileMode.Create);
 
         playerData data = new playerData();
@@ -23,7 +28,7 @@ public class SaveSystem
     public static void savePlayerFromShop(PlayerShop player)
     {
         BinaryFormatter Formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/playerData.txt";
+        string path = $"{Application.persistentDataPath}/playerData.txt";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         playerData data = new playerData(player);
@@ -33,7 +38,7 @@ public class SaveSystem
     public static void savePlayer(PlayerMovement player)
     {
         BinaryFormatter Formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/playerData.txt";
+        string path = $"{Application.persistentDataPath}/playerData.txt";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         playerData data = new playerData(player);
@@ -43,7 +48,7 @@ public class SaveSystem
     public static void savePlayerFromMShop(playerData data)
     {
         BinaryFormatter Formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/playerData.txt";
+        string path = $"{Application.persistentDataPath}/playerData.txt";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         Formatter.Serialize(stream, data);
@@ -51,7 +56,7 @@ public class SaveSystem
     }
     public static playerData LoadPlayer()
     {
-        string path = Application.persistentDataPath + "/playerData.txt";
+        string path = $"{Application.persistentDataPath}/playerData.txt";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -73,7 +78,7 @@ public class SaveSystem
     public static void createBase()
     {
         BinaryFormatter Formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/MothershipData.txt";
+        string path = $"{Application.persistentDataPath}/MothershipData.txt";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         MothershipData data = new MothershipData();
@@ -83,7 +88,7 @@ public class SaveSystem
     public static void saveBaseFromShop(mothershipShop Base)
     {
         BinaryFormatter Formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/MothershipData.txt";
+        string path = $"{Application.persistentDataPath}/MothershipData.txt";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         MothershipData data = new MothershipData(Base);
@@ -93,7 +98,7 @@ public class SaveSystem
     public static void saveBase(mothership Base)
     {
         BinaryFormatter Formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/MothershipData.txt";
+        string path = $"{Application.persistentDataPath}/MothershipData.txt";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         MothershipData data = new MothershipData(Base);
@@ -102,7 +107,7 @@ public class SaveSystem
     }
     public static MothershipData LoadBase()
     {
-        string path = Application.persistentDataPath + "/MothershipData.txt";
+        string path = $"{Application.persistentDataPath}/MothershipData.txt";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();

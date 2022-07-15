@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class Enemy1 : MonoBehaviour
 {
-
-    public int deffault_speed = 2,
-                attack_speed = 4,
+    public float deffault_speed = 1.5f;
+    public float move_speed;
+    public int attack_speed = 3,
                  life = 40,
-                 damage = 40,
-                 move_speed;
+                 maxHealth = 40,
+                 damage = 40;
+
+                 
+               
     private Transform enemy_transform;
     public GameObject explosion;
     private Vector2 target;
     private int points_for_death=25;
     private int gold_for_death = 5;
-    
 
+    public HealthBarBehaviour healthBar;
 
     
     // Start is called before the first frame update
@@ -25,7 +28,7 @@ public class Enemy1 : MonoBehaviour
         enemy_transform = GetComponent<Transform>();
         target = new Vector2(0, 0);
         move_speed = deffault_speed;
-        
+        healthBar.setHealth(life, maxHealth);
     }
 
     // Update is called once per frame
@@ -141,6 +144,7 @@ public class Enemy1 : MonoBehaviour
     void damaged(int dmg)
     {
         this.life -= dmg;
+        healthBar.setHealth(life, maxHealth);
     }
 
    
@@ -171,6 +175,12 @@ public class Enemy1 : MonoBehaviour
         if(collision.tag == "MothershipLaser")
         {
             damaged(FindObjectOfType<mothership>().damage);
+        }
+        if(collision.tag == "asteroid")
+        {
+            GameObject explosion_anim = Instantiate(explosion) as GameObject;
+            explosion_anim.transform.position = transform.position;
+            Destroy(this.gameObject);
         }
     }
     public void death()

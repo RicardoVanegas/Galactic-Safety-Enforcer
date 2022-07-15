@@ -16,6 +16,7 @@ public class mothership : MonoBehaviour
     public Transform explosion_position;
     public HealthBar healthBar;
     public GameObject laser;
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +55,8 @@ public class mothership : MonoBehaviour
             firingRate = 16 - (1.5f * (f_level - 1));
         }
         StartCoroutine(attack());
+
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -67,6 +70,7 @@ public class mothership : MonoBehaviour
         {
             current_health -= FindObjectOfType<Enemy1>().damage;
             healthBar.setHealth(current_health);
+            anim.SetTrigger("Damaged");
             if (current_health <= 0)
             {
                 death();
@@ -78,6 +82,7 @@ public class mothership : MonoBehaviour
     {
         current_health -= n;
         healthBar.setHealth(current_health);
+        anim.SetTrigger("Damaged");
         if (current_health <= 0)
         {
             death();

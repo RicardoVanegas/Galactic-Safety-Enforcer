@@ -13,13 +13,11 @@ public class endGame : MonoBehaviour
     public Text scoreText;
     public Text seconds_text;
     public Text Higher_score_text;
-    IDbConnection dbcon;
+    
     // Start is called before the first frame update
     void Start()
     {
-        string connection = "URI=file:" + Application.persistentDataPath + "/player_run_data"; //si no encuentra la base de datos en la direccion especificada, la crea
-        dbcon = new SqliteConnection(connection);
-        dbcon.Open();
+       
     }
 
     // Update is called once per frame
@@ -36,11 +34,7 @@ public class endGame : MonoBehaviour
         seconds_text.text = seconds.ToString();
         endGamePanel.SetActive(true);
 
-        IDbCommand cmnd = dbcon.CreateCommand();
-        cmnd.CommandText = "INSERT INTO deaths (deathID, score,seconds,health,speed,damage,fire_rate,ammo,reload_speed) " +
-            "VALUES ("+(GetRun()+1).ToString()+ "," + score +","+seconds+ ","+data.health_level+","+data.speed_level+","+data.damage_level+","+data.firingRate_level+","+data.ammo_level+","+data.reloadSpeed_level+")";
-        cmnd.ExecuteNonQuery();
-        dbcon.Close();
+        
         
         Time.timeScale = 0f;
 
@@ -60,21 +54,5 @@ public class endGame : MonoBehaviour
         Application.Quit();
     }
 
-    public Int64 GetRun()
-    {
-        IDbCommand cmnd_read = dbcon.CreateCommand();
-        IDataReader reader;
-        string query = "SELECT MAX(deathID) FROM deaths";
-        cmnd_read.CommandText = query;
-        reader = cmnd_read.ExecuteReader();
-        if (reader.IsDBNull(0))
-        {
-            return 0;
-        }
-        else
-        {
-            return (Int64)reader.GetValue(0);
-        }
-        
-    }
+   
 }

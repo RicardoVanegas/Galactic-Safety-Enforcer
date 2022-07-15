@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy3 : MonoBehaviour
 {
 
-    public int speed = 4;
+    public float speed = 3.5f;
     public int health = 80;
     public int damage = 30;
     private int damage_on_collision = 40;
@@ -16,12 +16,17 @@ public class Enemy3 : MonoBehaviour
     public GameObject explosion;
     public GameObject laser_enemy;
     public Transform firePointPosition;
+
+    public int maxHealth = 80;
+    public HealthBarBehaviour healthBar;
+
     // Start is called before the first frame update
     void Start()
     {
         enemy_transform = GetComponent<Transform>();
         target = new Vector2(0, 0);
         StartCoroutine(attacking());
+        healthBar.setHealth(health, maxHealth);
     }
 
     // Update is called once per frame
@@ -51,10 +56,17 @@ public class Enemy3 : MonoBehaviour
             
             damaged(FindObjectOfType<mothership>().damage);
         }
+        if (collision.tag == "asteroid")
+        {
+            GameObject explosion_anim = Instantiate(explosion) as GameObject;
+            explosion_anim.transform.position = transform.position;
+            Destroy(this.gameObject);
+        }
     }
     public void damaged(int dmg)
     {
         health -= dmg;
+        healthBar.setHealth(health, maxHealth);
     }
     public void death()
     {
