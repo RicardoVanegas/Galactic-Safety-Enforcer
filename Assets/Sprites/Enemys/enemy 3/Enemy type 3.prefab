@@ -459,6 +459,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1437284654562467000, guid: 5305de115df17f749bcdfa1ec7ce1c0e, type: 3}
+      propertyPath: offset.y
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1471140167316225959, guid: 5305de115df17f749bcdfa1ec7ce1c0e, type: 3}
       propertyPath: m_Name
       value: HealthBar

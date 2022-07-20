@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private bool reloading;
     public GameObject loading_anim;
     public Transform loading_position;
-    public HealthBar healthBar;
+    
     public GameObject explosion;
     public int gold;
     public int score;
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     public int actual_score;
 
     private SpriteRenderer playerSprite;
-    
+    public HealthBarBehaviour healthBar;
 
     // Start is called before the first frame update
     void Start()
@@ -59,16 +59,16 @@ public class PlayerMovement : MonoBehaviour
         player_life = health_level * 50;
         player_damage = damage_level * 10;
         player_speed = 5 + ((speed_level - 1) * .5f);
-        player_firing_rate = 5 + ((firingRate_level -1) * .25f);
+        player_firing_rate = 7 + ((firingRate_level -1) * .25f);
         player_reload_time = 3 - ((reloadSpeed_level-1)*.25f);
-        ammo = ammo_level * 10;
+        ammo = ammo_level * 20;
         gold = gold_saved;
         
 
         player_transform = GetComponent<Transform>();
         current_ammo = ammo;
         player_current_life = player_life;
-        healthBar.setMaxHealth(player_life);
+        healthBar.setHealth(player_current_life,player_life);
         
         score = 0;
         gold_text.text = gold_saved.ToString();
@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
     public void takeDamage(int damage)
     {
         player_current_life -=  damage;
-        healthBar.setHealth(player_current_life);
+        healthBar.setHealth(player_current_life,player_life);
 
         if (player_current_life <= 0)
         {

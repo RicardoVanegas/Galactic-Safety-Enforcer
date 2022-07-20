@@ -29,5 +29,9 @@ public class laser : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        if(collision.tag == "asteroid")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

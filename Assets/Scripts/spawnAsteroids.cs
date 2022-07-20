@@ -12,6 +12,7 @@ public class spawnAsteroids : MonoBehaviour
     void Start()
     {
         StartCoroutine(spawnDiagonalAsteroids());
+        StartCoroutine(spawnFAsteroids());
     }
 
     // Update is called once per frame
@@ -34,6 +35,21 @@ public class spawnAsteroids : MonoBehaviour
             asteroid.transform.position = dPositionLeft.position;
         }
         
+    }
+
+    public void Asteroids()
+    {
+        int n = Random.Range(-7,8);
+        GameObject asteroid = Instantiate(Dasteroid) as GameObject;
+        asteroid.transform.position = new Vector3(n, 8, 0);
+    }
+    IEnumerator spawnFAsteroids()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(12f);
+            Asteroids();
+        }
     }
     IEnumerator spawnDiagonalAsteroids()
     {

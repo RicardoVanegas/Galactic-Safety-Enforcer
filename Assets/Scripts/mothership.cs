@@ -14,7 +14,7 @@ public class mothership : MonoBehaviour
     private int current_health;
     public GameObject explosion;
     public Transform explosion_position;
-    public HealthBar healthBar;
+    public HealthBarBehaviour healthBar;
     public GameObject laser;
     private Animator anim;
 
@@ -34,9 +34,9 @@ public class mothership : MonoBehaviour
         {
             health = 500 + (250 * (h_level - 1));
         }
-
-        healthBar.setMaxHealth(health);
         current_health = health;
+        healthBar.setHealth(current_health,health);
+        
 
         if(d_level ==1)
         {
@@ -69,7 +69,7 @@ public class mothership : MonoBehaviour
         if(collision.tag == "Enemy")
         {
             current_health -= FindObjectOfType<Enemy1>().damage;
-            healthBar.setHealth(current_health);
+            healthBar.setHealth(current_health,health);
             anim.SetTrigger("Damaged");
             if (current_health <= 0)
             {
@@ -81,7 +81,7 @@ public class mothership : MonoBehaviour
     public void takeDamage(int n)
     {
         current_health -= n;
-        healthBar.setHealth(current_health);
+        healthBar.setHealth(current_health,health);
         anim.SetTrigger("Damaged");
         if (current_health <= 0)
         {
